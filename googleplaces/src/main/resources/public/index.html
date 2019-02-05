@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<form ng-submit="myFunc()">
+    Latitude:
+    <input type="text"  ng-model=latitude>
+    Longitude:
+    <input type="text"  ng-model=longitude>
+    Radius:
+    <input type="text"  ng-model=radius>
+    Api Key:
+    <input type="text"  ng-model=key>
+    <input type="submit">
+</form>
+
+<table>
+    <tr ng-repeat="x in response">
+        <td>{{ x.geometry.location }}</td>
+        <td>{{ x.name }}</td>
+        <td>{{ x.vicinity }}</td>
+    </tr>
+</table>
+
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function($scope,$http) {
+        $scope.myFunc = function() {
+             return $http.get('/submit?latitude='+$scope.latitude+'&longitude='+$scope.longitude+'&radius='+$scope.radius+'&key='+$scope.key).then(
+                 function(data) { $scope.response =  JSON.parse(JSON.stringify(data)).data.results; }
+                 );
+             }
+        }
+    );
+</script>
+
+</body>
+</html>
