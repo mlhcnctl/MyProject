@@ -25,7 +25,6 @@ public class MapController {
                                             @RequestParam String radius,
                                             @RequestParam(defaultValue = api_key) String key
     ) {
-        System.out.println(latitude + " "+ longitude +" "+radius);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
@@ -36,7 +35,7 @@ public class MapController {
 
         HttpEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
                 String.class);
-        System.out.println(response.toString());
+        
         return response;
     }
 
